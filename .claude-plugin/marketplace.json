@@ -1,0 +1,15 @@
+{
+  "name": "eas-flow",
+  "owner": {
+    "name": "eas-flow",
+    "url": "https://github.com/eas-flow"
+  },
+  "plugins": [
+    {
+      "name": "eas-flow",
+      "source": "./",
+      "description": "Automates the Expo/EAS release & deploy workflow as Claude Code skills.",
+      "version": "0.1.0"
+    }
+  ]
+}
