@@ -1,0 +1,26 @@
+{
+  "$schema": "./plugin.config.schema.json",
+  "repo": "owner/repo",
+  "appDir": "src/MyApp",
+  "appConfigPath": "src/MyApp/app.json",
+  "integrationBranch": "develop",
+  "productionBranch": "main",
+  "platform": "ios",
+  "easProfile": "production",
+  "commands": {
+    "lint": "npm run lint",
+    "typecheck": "npx tsc --noEmit",
+    "test": "npm run test"
+  },
+  "labelPrefixMap": {
+    "bug": "fix",
+    "feature": "feat",
+    "improvement": "chore",
+    "docs": "docs"
+  },
+  "docSync": {
+    "docs": ["doc/product.md", "doc/app.md", "doc/infra.md", "CONTRIBUTING.md"],
+    "ssot": ["package.json", "eslint.config.js"]
+  },
+  "storeUrl": ""
+}
