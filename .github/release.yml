@@ -1,0 +1,28 @@
+# GitHub auto-generated release notes configuration.
+# Categories mirror the release-draft skill's grouping (feat / fix / chore).
+# PRs are grouped by their labels; keep labels aligned with commit prefixes.
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - duplicate
+  categories:
+    - title: 👍 機能改修 / Features
+      labels:
+        - enhancement
+        - feat
+    - title: 🐛 不具合修正 / Fixes
+      labels:
+        - bug
+        - fix
+    - title: 🔄 改善 / Improvements
+      labels:
+        - chore
+        - refactor
+        - performance
+    - title: 📖 ドキュメント / Docs
+      labels:
+        - docs
+    - title: その他 / Other Changes
+      labels:
+        - "*"
