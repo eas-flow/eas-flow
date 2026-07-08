@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question / Discussion / 質問・相談
+    url: https://github.com/eas-flow/eas-flow/discussions
+    about: For questions and open-ended discussion, please use Discussions. / 質問や相談は Discussions へ。
