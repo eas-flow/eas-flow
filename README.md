@@ -77,8 +77,9 @@ before building, pushing a version bump, or creating a release.
 ## Contributing
 
 Development follows a `develop`-based flow: branch off `develop` per issue, open a
-PR into `develop`, and cut releases from `develop` to `main`. See the issues on the
-[tracker](https://github.com/eas-flow/eas-flow/issues).
+PR into `develop`, and cut releases from `develop` to `main`. See
+[CONTRIBUTING.md](./CONTRIBUTING.md) for setup and conventions, and the issues on
+the [tracker](https://github.com/eas-flow/eas-flow/issues).
 
 ## License
 
