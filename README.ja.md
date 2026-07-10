@@ -75,7 +75,8 @@ Lint・型チェックの通過を必須とし、ビルド・バージョン更�
 ## コントリビュート
 
 開発は `develop` 基点のフローです。イシューごとに `develop` からブランチを切り、`develop` への PR を作成し、
-リリースは `develop` → `main` で切ります。詳細は
+リリースは `develop` → `main` で切ります。セットアップと規約は
+[CONTRIBUTING.md](./CONTRIBUTING.md)、課題は
 [イシュートラッカー](https://github.com/eas-flow/eas-flow/issues)を参照してください。
 
 ## ライセンス
