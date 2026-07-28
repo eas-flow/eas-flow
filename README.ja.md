@@ -12,12 +12,12 @@ English version: [README.md](./README.md)
 
 ## スキル
 
-| スキル | ステータス | 内容 |
-| --- | --- | --- |
-| `deploy` | v0.1.0 | Lint・型チェック後、`eas build --auto-submit` で本番ビルド＆ストア提出 |
-| `release-draft` | v0.1.0 | `app.json` のバージョン（iOSはビルド番号も）を更新・push し、リリースPRとリリースノート草稿を生成 |
-| `develop-work` | 予定（v0.2.0） | イシューから統合ブランチ基点で作業ブランチを作成し、品質ゲートを通してPRを作成 |
-| `doc-sync` | 予定（v0.2.0） | 実装とドキュメントの乖離を検出し、更新案を提示 |
+| スキル          | ステータス     | 内容                                                                                              |
+| --------------- | -------------- | ------------------------------------------------------------------------------------------------- |
+| `deploy`        | v0.1.0         | Lint・型チェック後、`eas build --auto-submit` で本番ビルド＆ストア提出                            |
+| `release-draft` | v0.1.0         | `app.json` のバージョン（iOSはビルド番号も）を更新・push し、リリースPRとリリースノート草稿を生成 |
+| `develop-work`  | 予定（v0.2.0） | イシューから統合ブランチ基点で作業ブランチを作成し、品質ゲートを通してPRを作成                    |
+| `doc-sync`      | 予定（v0.2.0） | 実装とドキュメントの乖離を検出し、更新案を提示                                                    |
 
 ## 前提
 
@@ -40,12 +40,12 @@ English version: [README.md](./README.md)
 
 ```jsonc
 {
-  "repo": "owner/repo",            // 省略可。gh repo view から自動取得
-  "appDir": "src/MyApp",          // npm/eas を実行するディレクトリ
+  "repo": "owner/repo", // 省略可。gh repo view から自動取得
+  "appDir": "src/MyApp", // npm/eas を実行するディレクトリ
   "appConfigPath": "src/MyApp/app.json",
   "integrationBranch": "develop",
   "productionBranch": "main",
-  "platform": "ios",             // ios | android | all
+  "platform": "ios", // ios | android | all
   "easProfile": "production",
   "commands": {
     "lint": "npm run lint",
