@@ -3,7 +3,9 @@
 
 Reads ``plugin.config.json`` from the project root (or a path given as the first
 argument), fills in defaults, auto-detects ``repo`` via the GitHub CLI when it is
-missing, validates a few basics, and prints the resolved config as JSON to stdout.
+missing, validates it against ``plugin.config.schema.json`` (falling back to a
+minimal manual check when the ``jsonschema`` package isn't installed), and
+prints the resolved config as JSON to stdout.
 
 The eas-flow skills run this at their start so every downstream step reads a
 single, fully-resolved config instead of hardcoded values.
@@ -15,7 +17,8 @@ Exit codes:
     0  success (resolved config printed to stdout)
     1  config file not found
     2  config file is not valid JSON
-    3  required field missing and could not be resolved
+    3  required field missing, invalid, or the resolved config fails schema
+       validation
 """
 
 from __future__ import annotations
@@ -24,6 +27,11 @@ import json
 import subprocess
 import sys
 from pathlib import Path
+
+try:
+    import jsonschema
+except ImportError:  # pragma: no cover - exercised via monkeypatch in tests
+    jsonschema = None
 
 DEFAULTS: dict = {
     "integrationBranch": "develop",
@@ -47,6 +55,7 @@ DEFAULTS: dict = {
 
 VALID_PLATFORMS = {"ios", "android", "all"}
 REQUIRED = ("appDir", "appConfigPath")
+SCHEMA_PATH = Path(__file__).resolve().parent.parent / "plugin.config.schema.json"
 
 
 def _die(code: int, message: str) -> None:
@@ -81,6 +90,34 @@ def _merge_defaults(cfg: dict) -> dict:
     return resolved
 
 
+def _validate_with_schema(cfg: dict) -> None:
+    """Strictly validate ``cfg`` against plugin.config.schema.json.
+
+    Reports every violation with its JSON-path location. Requires the
+    ``jsonschema`` package and the schema file to be present.
+    """
+    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    validator = jsonschema.Draft7Validator(schema)
+    violations = sorted(validator.iter_errors(cfg), key=lambda e: list(e.path))
+    if not violations:
+        return
+    lines = []
+    for v in violations:
+        loc = "/".join(str(p) for p in v.path) or "(root)"
+        lines.append(f"{loc}: {v.message}")
+    _die(3, "schema validation failed:\n  " + "\n  ".join(lines))
+
+
+def _validate_minimal(cfg: dict) -> None:
+    """Fallback checks used when ``jsonschema`` is not installed."""
+    missing = [f for f in REQUIRED if not cfg.get(f)]
+    if missing:
+        _die(3, f"missing required field(s): {', '.join(missing)}")
+
+    if cfg["platform"] not in VALID_PLATFORMS:
+        _die(3, f"platform must be one of {sorted(VALID_PLATFORMS)}")
+
+
 def load_config(path: Path) -> dict:
     if not path.exists():
         _die(1, f"config file not found: {path}")
@@ -99,12 +136,10 @@ def load_config(path: Path) -> dict:
         else:
             _die(3, "`repo` is missing and could not be detected via `gh repo view`")
 
-    missing = [f for f in REQUIRED if not cfg.get(f)]
-    if missing:
-        _die(3, f"missing required field(s): {', '.join(missing)}")
-
-    if cfg["platform"] not in VALID_PLATFORMS:
-        _die(3, f"platform must be one of {sorted(VALID_PLATFORMS)}")
+    if jsonschema is not None and SCHEMA_PATH.exists():
+        _validate_with_schema(cfg)
+    else:
+        _validate_minimal(cfg)
 
     return cfg
 
