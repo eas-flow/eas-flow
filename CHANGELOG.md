@@ -6,6 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- `develop-work` skill: cuts a work branch off the integration branch from an
+  issue, delegates investigation to the `explorer` subagent, runs the
+  lint/typecheck(/test) quality gate, then opens a PR. #28
+
 ## [0.1.0] - 2026-07-28
 
 ### Added
