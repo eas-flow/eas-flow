@@ -14,7 +14,7 @@ across any Expo project.
 ## Skills
 
 | Skill           | Status           | What it does                                                                                                                                        |
-| --------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `deploy`        | v0.1.0           | Runs lint/type checks, then `eas build --auto-submit` to build and submit a production build to the store                                           |
 | `release-draft` | v0.1.0           | Bumps `app.json` version (and iOS build number), pushes, and drafts a release PR + release notes                                                    |
 | `develop-work`  | v0.2.0           | Cuts a work branch off the integration branch from an issue, delegates investigation to the `explorer` subagent, runs quality gates, and opens a PR |
