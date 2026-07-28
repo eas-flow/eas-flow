@@ -171,7 +171,7 @@ EOF
 # 変更一覧
 
 - **リリース日**： YYYY年MM月DD日
-<storeUrl があれば「- [ストアリンク](storeUrl)」を追加>
+  <storeUrl があれば「- [ストアリンク](storeUrl)」を追加>
 
 ## 👍機能改修
 
