@@ -156,3 +156,92 @@ def test_repo_autodetect_unavailable_exits_3(load_config_mod, tmp_path, monkeypa
         load_config_mod.load_config(path)
 
     assert exc.value.code == 3
+
+
+def test_schema_rejects_unknown_property(load_config_mod, tmp_path):
+    path = _write_config(
+        tmp_path,
+        {
+            "repo": "owner/repo",
+            "appDir": "src/App",
+            "appConfigPath": "src/App/app.json",
+            "unknownField": True,
+        },
+    )
+
+    with pytest.raises(SystemExit) as exc:
+        load_config_mod.load_config(path)
+
+    assert exc.value.code == 3
+
+
+def test_schema_error_message_includes_field_path(load_config_mod, tmp_path, capsys):
+    path = _write_config(
+        tmp_path,
+        {
+            "repo": "owner/repo",
+            "appDir": "src/App",
+            "appConfigPath": "src/App/app.json",
+            "platform": "windows",
+        },
+    )
+
+    with pytest.raises(SystemExit):
+        load_config_mod.load_config(path)
+
+    captured = capsys.readouterr()
+    assert "platform" in captured.err
+
+
+def test_minimal_fallback_still_catches_missing_required(load_config_mod, tmp_path, monkeypatch):
+    monkeypatch.setattr(load_config_mod, "jsonschema", None)
+    path = _write_config(
+        tmp_path,
+        {
+            "repo": "owner/repo",
+            "appDir": "src/App",
+            # appConfigPath omitted
+        },
+    )
+
+    with pytest.raises(SystemExit) as exc:
+        load_config_mod.load_config(path)
+
+    assert exc.value.code == 3
+
+
+def test_minimal_fallback_still_catches_invalid_platform(load_config_mod, tmp_path, monkeypatch):
+    monkeypatch.setattr(load_config_mod, "jsonschema", None)
+    path = _write_config(
+        tmp_path,
+        {
+            "repo": "owner/repo",
+            "appDir": "src/App",
+            "appConfigPath": "src/App/app.json",
+            "platform": "windows",
+        },
+    )
+
+    with pytest.raises(SystemExit) as exc:
+        load_config_mod.load_config(path)
+
+    assert exc.value.code == 3
+
+
+def test_minimal_fallback_allows_unknown_property(load_config_mod, tmp_path, monkeypatch):
+    """Without jsonschema, unknown properties aren't rejected -- only the
+    pre-existing required-field and platform-enum checks run."""
+    monkeypatch.setattr(load_config_mod, "jsonschema", None)
+    path = _write_config(
+        tmp_path,
+        {
+            "repo": "owner/repo",
+            "appDir": "src/App",
+            "appConfigPath": "src/App/app.json",
+            "unknownField": True,
+        },
+    )
+
+    cfg = load_config_mod.load_config(path)
+
+    assert cfg["unknownField"] is True

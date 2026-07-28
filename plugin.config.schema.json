@@ -5,6 +5,7 @@
   "description": "Per-project configuration consumed by the eas-flow Claude Code skills.",
   "type": "object",
   "additionalProperties": false,
+  "required": ["appDir", "appConfigPath"],
   "properties": {
     "$schema": { "type": "string" },
     "repo": {
