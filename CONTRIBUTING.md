@@ -17,7 +17,7 @@ see [CLAUDE.md](./CLAUDE.md); for conventions, see
 ```bash
 git clone https://github.com/eas-flow/eas-flow.git
 cd eas-flow
-pip install pyyaml jsonschema   # for the validator
+pip install -r requirements-dev.txt   # pinned: pyyaml, jsonschema, pytest
 python3 scripts/validate_plugin.py
 ```
 

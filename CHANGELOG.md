@@ -18,6 +18,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - CI workflow validating plugin manifests and skill frontmatter.
 - Repo formatting/lint: `.editorconfig`, Prettier (JSON/YAML/Markdown), `ruff`
   for `scripts/`, and a CI `format` job. #21
+- `requirements-dev.txt` pinning CI/dev dependencies (`pyyaml`, `jsonschema`,
+  `pytest`). #34
 
 ## [0.1.0] - unreleased
 Target scope: `deploy` and `release-draft` skills working end-to-end on a real
