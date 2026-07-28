@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Added
+
+- `develop-work` skill: cuts a work branch off the integration branch from an
+  issue, delegates investigation to the `explorer` subagent, runs the
+  lint/typecheck(/test) quality gate, then opens a PR. #28
 - `doc-sync` skill: compares `plugin.config.json`'s `docSync` target docs
   against SSOT files over a commit range, delegates drift detection to the
   `doc-auditor` subagent, and applies edits only after user approval. #29
