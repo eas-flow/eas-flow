@@ -69,6 +69,7 @@ def test_normal_case_passes(validate_plugin_mod, valid_repo, monkeypatch):
 
     validate_plugin_mod.check_plugin_manifest()
     validate_plugin_mod.check_marketplace()
+    validate_plugin_mod.check_version_consistency()
     validate_plugin_mod.check_skills()
     validate_plugin_mod.check_example_config()
     validate_plugin_mod.check_loader()
@@ -153,6 +154,47 @@ def test_plugin_manifest_missing_key_is_reported(validate_plugin_mod, valid_repo
     assert any("description" in e for e in validate_plugin_mod.errors)
 
 
-# NOTE: a plugin.json <-> marketplace.json version-consistency check does not
-# exist yet (tracked in #31); once added, a corresponding
-# "version mismatch is reported" test belongs here alongside it.
+def test_version_match_passes(validate_plugin_mod, valid_repo, monkeypatch):
+    monkeypatch.setattr(validate_plugin_mod, "ROOT", valid_repo)
+
+    validate_plugin_mod.check_version_consistency()
+
+    assert validate_plugin_mod.errors == []
+
+
+def test_version_mismatch_is_reported(validate_plugin_mod, valid_repo, monkeypatch):
+    monkeypatch.setattr(validate_plugin_mod, "ROOT", valid_repo)
+    (valid_repo / ".claude-plugin" / "plugin.json").write_text(
+        json.dumps({"name": "sample", "version": "1.1.0", "description": "A sample plugin."}),
+        encoding="utf-8",
+    )
+
+    validate_plugin_mod.check_version_consistency()
+
+    assert any("version mismatch" in e for e in validate_plugin_mod.errors)
+    assert any("1.1.0" in e and "1.0.0" in e for e in validate_plugin_mod.errors)
+
+
+def test_version_check_reports_missing_marketplace_entry(
+    validate_plugin_mod, valid_repo, monkeypatch
+):
+    monkeypatch.setattr(validate_plugin_mod, "ROOT", valid_repo)
+    (valid_repo / ".claude-plugin" / "marketplace.json").write_text(
+        json.dumps(
+            {
+                "plugins": [
+                    {
+                        "name": "other-plugin",
+                        "source": "./",
+                        "description": "d",
+                        "version": "1.0.0",
+                    }
+                ]
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    validate_plugin_mod.check_version_consistency()
+
+    assert any("no plugins[] entry named 'sample'" in e for e in validate_plugin_mod.errors)

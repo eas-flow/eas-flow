@@ -4,10 +4,12 @@
 Checks, from the repository root:
   1. .claude-plugin/plugin.json      - valid JSON with required keys.
   2. .claude-plugin/marketplace.json - valid JSON with a non-empty plugins list.
-  3. skills/<name>/SKILL.md           - YAML frontmatter has name & description,
+  3. plugin.json <-> marketplace.json - matching plugin entry has the same
+                                        `version` (single source of truth).
+  4. skills/<name>/SKILL.md           - YAML frontmatter has name & description,
                                         and name matches the directory.
-  4. plugin.config.example.json       - validates against plugin.config.schema.json.
-  5. scripts/load-config.py           - resolves the example config without error.
+  5. plugin.config.example.json       - validates against plugin.config.schema.json.
+  6. scripts/load-config.py           - resolves the example config without error.
 
 Exit code is 0 when all checks pass, 1 otherwise. Intended to run in CI.
 """
@@ -61,6 +63,46 @@ def check_marketplace() -> None:
         for key in ("name", "source"):
             if not p.get(key):
                 err(f"marketplace.json: plugins[{i}] missing '{key}'")
+
+
+def check_version_consistency() -> None:
+    """plugin.json's `version` must match its entry in marketplace.json.
+
+    Both files declare a version independently (SSOT: see
+    .claude/rules/README.md), and nothing else keeps them in sync, so a
+    release can silently ship mismatched versions unless this is checked.
+    """
+    plugin_data = load_json(ROOT / ".claude-plugin" / "plugin.json")
+    marketplace_data = load_json(ROOT / ".claude-plugin" / "marketplace.json")
+    if plugin_data is None or marketplace_data is None:
+        return
+
+    plugin_name = plugin_data.get("name")
+    plugin_version = plugin_data.get("version")
+    if not plugin_name or not plugin_version:
+        # Already reported by check_plugin_manifest().
+        return
+
+    plugins = marketplace_data.get("plugins")
+    if not isinstance(plugins, list):
+        # Already reported by check_marketplace().
+        return
+
+    entry = next((p for p in plugins if p.get("name") == plugin_name), None)
+    if entry is None:
+        err(
+            f"marketplace.json: no plugins[] entry named '{plugin_name}' to "
+            "compare against plugin.json's version"
+        )
+        return
+
+    marketplace_version = entry.get("version")
+    if plugin_version != marketplace_version:
+        err(
+            "version mismatch: .claude-plugin/plugin.json version "
+            f"'{plugin_version}' != marketplace.json plugins[].version "
+            f"'{marketplace_version}' (plugin '{plugin_name}')"
+        )
 
 
 def parse_frontmatter(text: str):
@@ -127,6 +169,7 @@ def check_loader() -> None:
 def main() -> int:
     check_plugin_manifest()
     check_marketplace()
+    check_version_consistency()
     check_skills()
     check_example_config()
     check_loader()
