@@ -17,7 +17,7 @@ see [CLAUDE.md](./CLAUDE.md); for conventions, see
 ```bash
 git clone https://github.com/eas-flow/eas-flow.git
 cd eas-flow
-pip install pyyaml jsonschema   # for the validator
+pip install -r requirements-dev.txt   # pinned: pyyaml, jsonschema, pytest
 python3 scripts/validate_plugin.py
 ```
 
@@ -52,10 +52,12 @@ git switch -c "feat/#23"
 
 ```bash
 python3 scripts/validate_plugin.py
+python3 -m pytest
 ```
 
 This validates the plugin manifests, `SKILL.md` frontmatter, and the example
-config. CI runs the same check on every PR — please make sure it passes.
+config, and runs the unit test suite. CI runs the same checks on every PR —
+please make sure they pass.
 
 ## Adding a skill / スキル追加時
 
