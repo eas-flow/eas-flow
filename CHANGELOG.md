@@ -6,6 +6,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- `agents/explorer.md`: read-only subagent that investigates target files,
+  existing implementation patterns, and impact scope before implementation
+  starts. #30
+- `agents/doc-auditor.md`: read-only subagent that compares `docSync` target
+  docs against SSOT files and lists discrepancies. #30
+
 ## [0.1.0] - 2026-07-28
 
 ### Added
