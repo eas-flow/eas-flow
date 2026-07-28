@@ -13,12 +13,12 @@ across any Expo project.
 
 ## Skills
 
-| Skill | Status | What it does |
-| --- | --- | --- |
-| `deploy` | v0.1.0 | Runs lint/type checks, then `eas build --auto-submit` to build and submit a production build to the store |
-| `release-draft` | v0.1.0 | Bumps `app.json` version (and iOS build number), pushes, and drafts a release PR + release notes |
-| `develop-work` | planned (v0.2.0) | Cuts a work branch off the integration branch from an issue, runs quality gates, and opens a PR |
-| `doc-sync` | planned (v0.2.0) | Detects drift between implementation and docs and proposes updates |
+| Skill           | Status           | What it does                                                                                                |
+| --------------- | ---------------- | ------------------------------------------------------------------------------------------------------------ |
+| `deploy`        | v0.1.0           | Runs lint/type checks, then `eas build --auto-submit` to build and submit a production build to the store |
+| `release-draft` | v0.1.0           | Bumps `app.json` version (and iOS build number), pushes, and drafts a release PR + release notes          |
+| `develop-work`  | planned (v0.2.0) | Cuts a work branch off the integration branch from an issue, runs quality gates, and opens a PR           |
+| `doc-sync`      | planned (v0.2.0) | Detects drift between implementation and docs and proposes updates                                        |
 
 ## Requirements
 
@@ -41,12 +41,12 @@ Add a `plugin.config.json` to your project root. Start from
 
 ```jsonc
 {
-  "repo": "owner/repo",            // optional; auto-detected via `gh repo view`
-  "appDir": "src/MyApp",          // where npm/eas commands run
+  "repo": "owner/repo", // optional; auto-detected via `gh repo view`
+  "appDir": "src/MyApp", // where npm/eas commands run
   "appConfigPath": "src/MyApp/app.json",
   "integrationBranch": "develop",
   "productionBranch": "main",
-  "platform": "ios",             // ios | android | all
+  "platform": "ios", // ios | android | all
   "easProfile": "production",
   "commands": {
     "lint": "npm run lint",

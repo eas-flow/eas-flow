@@ -9,5 +9,13 @@
   "homepage": "https://github.com/eas-flow/eas-flow",
   "repository": "https://github.com/eas-flow/eas-flow",
   "license": "MIT",
-  "keywords": ["expo", "eas", "react-native", "release", "deploy", "workflow", "claude-code-plugin"]
+  "keywords": [
+    "expo",
+    "eas",
+    "react-native",
+    "release",
+    "deploy",
+    "workflow",
+    "claude-code-plugin"
+  ]
 }
