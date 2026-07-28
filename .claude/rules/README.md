@@ -3,8 +3,8 @@
 Development conventions for this repository, referenced from
 [CLAUDE.md](../../CLAUDE.md). Keep these minimal and accurate.
 
-| Rule                                             | Scope                                                        |
-| ------------------------------------------------- | ------------------------------------------------------------ |
+| Rule                                              | Scope                                                        |
+| -------------------------------------------------- | ------------------------------------------------------------ |
 | [coding-conventions.md](./coding-conventions.md) | Python / JSON / YAML / Markdown / SKILL.md style             |
 | [git-workflow.md](./git-workflow.md)             | Branch/commit conventions, develop-based flow, prohibitions  |
 
@@ -13,7 +13,7 @@ Development conventions for this repository, referenced from
 When documenting numbers or settings, transcribe from the source file rather than
 guessing:
 
-| Fact                  | SSOT                                                      |
+| Fact                  | SSOT                                                     |
 | ---------------------- | ---------------------------------------------------------- |
 | Plugin name / version | `.claude-plugin/plugin.json`                              |
 | Config schema         | `plugin.config.schema.json`                               |
