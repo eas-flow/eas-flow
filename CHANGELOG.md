@@ -6,6 +6,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-29
+
 ### Added
 
 - `develop-work` skill: cuts a work branch off the integration branch from an
@@ -49,4 +51,5 @@ Target scope: `deploy` and `release-draft` skills working end-to-end on a real
 Expo project via `plugin.config.json`.
 
 [Unreleased]: https://github.com/eas-flow/eas-flow/compare/main...develop
+[0.2.0]: https://github.com/eas-flow/eas-flow/releases/tag/Ver0.2.0
 [0.1.0]: https://github.com/eas-flow/eas-flow/releases/tag/Ver0.1.0
