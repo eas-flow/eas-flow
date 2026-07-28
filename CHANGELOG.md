@@ -16,6 +16,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `release-draft` skill: config-driven version bump, release PR, and release notes.
 - Bilingual documentation (`README.md`, `README.ja.md`).
 - CI workflow validating plugin manifests and skill frontmatter.
+- `requirements-dev.txt` pinning CI/dev dependencies (`pyyaml`, `jsonschema`,
+  `pytest`). #34
+- Unit test suite (`tests/`, pytest) covering `scripts/load-config.py` and
+  `scripts/validate_plugin.py`. #33
+- `load-config.py` now validates the resolved config against
+  `plugin.config.schema.json` (strict, path-annotated errors) when `jsonschema`
+  is installed, falling back to the previous minimal checks otherwise;
+  `appDir`/`appConfigPath` are now `required` in the schema. #32
 
 ## [0.1.0] - unreleased
 Target scope: `deploy` and `release-draft` skills working end-to-end on a real
