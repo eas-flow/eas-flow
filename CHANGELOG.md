@@ -6,6 +6,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- `doc-sync` skill: compares `plugin.config.json`'s `docSync` target docs
+  against SSOT files over a commit range, delegates drift detection to the
+  `doc-auditor` subagent, and applies edits only after user approval. #29
+
 ## [0.1.0] - 2026-07-28
 
 ### Added
