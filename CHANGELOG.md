@@ -6,6 +6,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-07-28
+
 ### Added
 - Repository scaffolding: MIT license, `.gitignore`, README skeleton.
 - Claude Code plugin manifest (`.claude-plugin/plugin.json`) and marketplace
@@ -26,9 +28,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `plugin.config.schema.json` (strict, path-annotated errors) when `jsonschema`
   is installed, falling back to the previous minimal checks otherwise;
   `appDir`/`appConfigPath` are now `required` in the schema. #32
+- `validate_plugin.py` now checks that `.claude-plugin/plugin.json`'s `version`
+  matches its entry in `marketplace.json`, so the two can't silently drift. #31
 
-## [0.1.0] - unreleased
 Target scope: `deploy` and `release-draft` skills working end-to-end on a real
 Expo project via `plugin.config.json`.
 
 [Unreleased]: https://github.com/eas-flow/eas-flow/compare/main...develop
+[0.1.0]: https://github.com/eas-flow/eas-flow/releases/tag/Ver0.1.0
