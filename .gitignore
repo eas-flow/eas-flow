@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Expo / EAS
+.expo/
+dist/
+web-build/
+*.tsbuildinfo
+
+# Native
+ios/Pods/
+android/.gradle/
+android/app/build/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Local plugin config (users provide their own)
+plugin.config.local.json

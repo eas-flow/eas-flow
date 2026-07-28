@@ -1,0 +1,21 @@
+{
+  "name": "eas-flow",
+  "version": "0.1.0",
+  "description": "Claude Code plugin that automates the Expo/EAS release & deploy workflow (develop-based Git flow, EAS build/submit, release drafting).",
+  "author": {
+    "name": "eas-flow",
+    "url": "https://github.com/eas-flow"
+  },
+  "homepage": "https://github.com/eas-flow/eas-flow",
+  "repository": "https://github.com/eas-flow/eas-flow",
+  "license": "MIT",
+  "keywords": [
+    "expo",
+    "eas",
+    "react-native",
+    "release",
+    "deploy",
+    "workflow",
+    "claude-code-plugin"
+  ]
+}

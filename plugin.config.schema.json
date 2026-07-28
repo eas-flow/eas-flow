@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/eas-flow/eas-flow/plugin.config.schema.json",
+  "title": "eas-flow plugin configuration",
+  "description": "Per-project configuration consumed by the eas-flow Claude Code skills.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["appDir", "appConfigPath"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "repo": {
+      "type": "string",
+      "description": "GitHub repository as owner/repo. If omitted, resolved via `gh repo view`.",
+      "pattern": "^[^/]+/[^/]+$"
+    },
+    "appDir": {
+      "type": "string",
+      "description": "Path to the Expo app root (where npm/eas commands run)."
+    },
+    "appConfigPath": {
+      "type": "string",
+      "description": "Path to app.json / app.config.json holding expo.version and build number."
+    },
+    "integrationBranch": {
+      "type": "string",
+      "description": "Integration branch that feature branches merge into.",
+      "default": "develop"
+    },
+    "productionBranch": {
+      "type": "string",
+      "description": "Production branch that releases are cut to.",
+      "default": "main"
+    },
+    "platform": {
+      "type": "string",
+      "enum": ["ios", "android", "all"],
+      "default": "ios"
+    },
+    "easProfile": {
+      "type": "string",
+      "description": "EAS build profile to use for production builds.",
+      "default": "production"
+    },
+    "commands": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "lint": { "type": "string", "default": "npm run lint" },
+        "typecheck": { "type": "string", "default": "npx tsc --noEmit" },
+        "test": { "type": "string", "default": "npm run test" }
+      }
+    },
+    "labelPrefixMap": {
+      "type": "object",
+      "description": "Maps GitHub issue labels to branch/commit prefixes.",
+      "additionalProperties": { "type": "string" }
+    },
+    "docSync": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "docs": { "type": "array", "items": { "type": "string" } },
+        "ssot": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "storeUrl": {
+      "type": "string",
+      "description": "Optional App Store / Play Store URL used in release notes."
+    }
+  }
+}
