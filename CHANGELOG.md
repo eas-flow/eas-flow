@@ -6,6 +6,22 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-07-29
+
+### Added
+
+- `develop-work` skill: cuts a work branch off the integration branch from an
+  issue, delegates investigation to the `explorer` subagent, runs the
+  lint/typecheck(/test) quality gate, then opens a PR. #28
+- `doc-sync` skill: compares `plugin.config.json`'s `docSync` target docs
+  against SSOT files over a commit range, delegates drift detection to the
+  `doc-auditor` subagent, and applies edits only after user approval. #29
+- `agents/explorer.md`: read-only subagent that investigates target files,
+  existing implementation patterns, and impact scope before implementation
+  starts. #30
+- `agents/doc-auditor.md`: read-only subagent that compares `docSync` target
+  docs against SSOT files and lists discrepancies. #30
+
 ## [0.1.0] - 2026-07-28
 
 ### Added
@@ -35,4 +51,5 @@ Target scope: `deploy` and `release-draft` skills working end-to-end on a real
 Expo project via `plugin.config.json`.
 
 [Unreleased]: https://github.com/eas-flow/eas-flow/compare/main...develop
+[0.2.0]: https://github.com/eas-flow/eas-flow/releases/tag/Ver0.2.0
 [0.1.0]: https://github.com/eas-flow/eas-flow/releases/tag/Ver0.1.0

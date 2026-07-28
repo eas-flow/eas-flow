@@ -4,7 +4,7 @@
 
 日本語版は [README.ja.md](./README.ja.md) を参照してください。
 
-**Status:** early development (`v0.1.0` in progress). APIs and structure may change.
+**Status:** early development (`v0.1.0` shipped, `v0.2.0` in progress). APIs and structure may change.
 
 `eas-flow` packages a set of Claude Code skills for running an Expo + EAS + GitHub
 development flow. Instead of hardcoding repository names, directories, and branches,
@@ -13,12 +13,12 @@ across any Expo project.
 
 ## Skills
 
-| Skill           | Status           | What it does                                                                                              |
-| --------------- | ---------------- | --------------------------------------------------------------------------------------------------------- |
-| `deploy`        | v0.1.0           | Runs lint/type checks, then `eas build --auto-submit` to build and submit a production build to the store |
-| `release-draft` | v0.1.0           | Bumps `app.json` version (and iOS build number), pushes, and drafts a release PR + release notes          |
-| `develop-work`  | planned (v0.2.0) | Cuts a work branch off the integration branch from an issue, runs quality gates, and opens a PR           |
-| `doc-sync`      | planned (v0.2.0) | Detects drift between implementation and docs and proposes updates                                        |
+| Skill           | Status | What it does                                                                                                                                        |
+| --------------- | ------ | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `deploy`        | v0.1.0 | Runs lint/type checks, then `eas build --auto-submit` to build and submit a production build to the store                                           |
+| `release-draft` | v0.1.0 | Bumps `app.json` version (and iOS build number), pushes, and drafts a release PR + release notes                                                    |
+| `develop-work`  | v0.2.0 | Cuts a work branch off the integration branch from an issue, delegates investigation to the `explorer` subagent, runs quality gates, and opens a PR |
+| `doc-sync`      | v0.2.0 | Detects drift between implementation and docs (delegated to the `doc-auditor` subagent) and proposes updates for approval                           |
 
 ## Requirements
 
@@ -63,6 +63,12 @@ skills resolve the config by running `scripts/load-config.py` at their start.
 ## Usage
 
 ```
+# From an open issue, to start implementation:
+/eas-flow:develop-work 23
+
+# To check for drift between implementation and docs:
+/eas-flow:doc-sync main..develop
+
 # After a release PR is merged to the production branch:
 /eas-flow:deploy
 
@@ -72,7 +78,8 @@ skills resolve the config by running `scripts/load-config.py` at their start.
 
 Every skill enforces safety gates: it refuses to run on the wrong branch, stops on
 uncommitted changes, requires lint/type checks to pass, and asks for your approval
-before building, pushing a version bump, or creating a release.
+before high-impact actions (implementation choices, document edits, a build,
+a version bump, or a release).
 
 ## Contributing
 

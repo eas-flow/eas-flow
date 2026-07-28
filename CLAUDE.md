@@ -17,7 +17,7 @@ any Expo project. See [README.md](./README.md) for the user-facing overview.
   plugin.json            # plugin manifest (name/version/description)
   marketplace.json       # marketplace entry (this repo = one plugin)
 skills/<name>/SKILL.md   # each skill: YAML frontmatter + instructions
-agents/                  # read-only subagents used by skills (planned)
+agents/<name>.md         # read-only subagents used by skills (YAML frontmatter + prompt)
 rules/                   # optional rule templates a consuming project can adopt
 scripts/
   load-config.py         # resolves plugin.config.json (defaults, repo autodetect)
@@ -38,6 +38,15 @@ lint/type checks to pass, and ask for user approval before build/version-bump/re
 **Frontmatter gotcha:** `description` and `hint` often contain `:` and `/`
 (e.g. `使用例: /eas-flow:deploy`). Always wrap those values in double quotes,
 or `scripts/validate_plugin.py` (strict YAML) will fail.
+
+## How the agents work
+
+`agents/<name>.md` are read-only subagents that skills delegate investigative
+work to (e.g. `explorer` for codebase exploration, `doc-auditor` for doc/impl
+drift detection). They run in an independent context via the Task tool, use only
+read-only tools (`Read`, `Grep`, `Glob`, and read-only `Bash` patterns like
+`git log`/`git diff`), and return a structured summary — they never edit files
+or make decisions on the calling skill's behalf.
 
 ## Development workflow
 
@@ -73,3 +82,12 @@ opened until it passes.
 3. Keep the safety gates. Update `README.md` / `README.ja.md` skill tables and
    `CHANGELOG.md`.
 4. Run the validator, then open a PR into `develop`.
+
+## When adding an agent
+
+1. Create `agents/<name>.md`; `name` must equal the frontmatter's `name`.
+2. Keep it read-only: only grant read/inspection tools, never `Edit`/`Write`
+   or mutating `Bash` commands.
+3. Document which skill(s) delegate to it, both in the agent's `description`
+   and in `agents/README.md`.
+4. Update `CHANGELOG.md`.
