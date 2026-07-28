@@ -16,6 +16,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `release-draft` skill: config-driven version bump, release PR, and release notes.
 - Bilingual documentation (`README.md`, `README.ja.md`).
 - CI workflow validating plugin manifests and skill frontmatter.
+- `requirements-dev.txt` pinning CI/dev dependencies (`pyyaml`, `jsonschema`,
+  `pytest`). #34
 
 ## [0.1.0] - unreleased
 Target scope: `deploy` and `release-draft` skills working end-to-end on a real
