@@ -5,7 +5,7 @@ YAML frontmatter (`name`, `description`, `tools`) and a system prompt, invoked
 by a skill in its own independent context via the Task tool.
 
 | Agent         | Used by                  | What it does                                                                                          |
-| ------------- | ------------------------ | ------------------------------------------------------------------------------------------------------ |
+| ------------- | ------------------------ | ----------------------------------------------------------------------------------------------------- |
 | `explorer`    | `develop-work` (planned) | Locates target files, existing implementation patterns, and impact scope before implementation starts |
 | `doc-auditor` | `doc-sync` (planned)     | Compares `docSync` target docs against SSOT files and lists discrepancies                             |
 
